@@ -1,0 +1,13 @@
+.idea/
+.vscode/
+.env
+*.code-workspace
+
+*.o
+*.so
+*.dylib
+*.dll
+*.bin
+*.exe
+
+secret.json
