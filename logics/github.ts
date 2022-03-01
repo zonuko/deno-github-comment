@@ -9,16 +9,13 @@ export interface Pagenation {
   hasNext: boolean;
   hasPrev: boolean;
 }
-export function githubClientId(): string {
-  return config()["GITHUB_CLIENT_ID"] || "";
-}
 
-function generateState(): string {
-  return crypto.randomUUID();
+export function githubClientId(): string {
+  return getEnv("GITHUB_CLIENT_ID") || "";
 }
 
 export function githubClientSecret(): string {
-  return config()["GITHUB_CLIENT_SECRET"] || "";
+  return getEnv("GITHUB_CLIENT_SECRET") || "";
 }
 
 export function buildGithubUrl(): string {
@@ -105,6 +102,14 @@ function iv(): Uint8Array {
   return crypto.getRandomValues(new Uint8Array(12));
 }
 
+function denoEnv(): string {
+  const e = Deno.env.get("DENO_ENV");
+  if (!e) {
+    return "development";
+  }
+  return e;
+}
+
 async function loadSecret() {
   let key = null;
   try {
@@ -112,7 +117,7 @@ async function loadSecret() {
   } catch (e) {
     console.error(e);
     console.log("try read key from env.");
-    key = config()["CRYPTO_SECRET"];
+    key = getEnv("CRYPTO_SECRET") || "";
   }
 
   const text = JSON.parse(key);
@@ -123,4 +128,15 @@ async function loadSecret() {
     false,
     ["encrypt", "decrypt"],
   );
+}
+
+function generateState(): string {
+  return crypto.randomUUID();
+}
+
+function getEnv(key: string) {
+  if (denoEnv() === "deploy") {
+    return Deno.env.get(key);
+  }
+  return config()[key];
 }
