@@ -106,7 +106,16 @@ function iv(): Uint8Array {
 }
 
 async function loadSecret() {
-  const text = JSON.parse(await Deno.readTextFile("secret.json"));
+  let key = null;
+  try {
+    key = await Deno.readTextFile("secret.json");
+  } catch (e) {
+    console.error(e);
+    console.log("try read key from env.");
+    key = config()["CRYPTO_SECRET"];
+  }
+
+  const text = JSON.parse(key);
   return await crypto.subtle.importKey(
     "jwk",
     text,
