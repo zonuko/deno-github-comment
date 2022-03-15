@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h } from "../deps.ts";
+import { h } from "../client_deps.ts";
 import { Pagenation } from "../logics/github.ts";
 export function Paging(
   props: { onNext: () => void; onPrev: () => void; link: Pagenation },

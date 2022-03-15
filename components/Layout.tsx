@@ -1,6 +1,8 @@
 /** @jsx h */
-import { ComponentChildren, h, Head } from "../deps.ts";
-export function Layout({ title, children }: { title: string, children: ComponentChildren }) {
+import { ComponentChildren, h, Head } from "../client_deps.ts";
+export function Layout(
+  { title, children }: { title: string; children: ComponentChildren },
+) {
   return (
     <div class="container">
       <Head>

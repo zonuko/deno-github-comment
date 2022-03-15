@@ -1,20 +1,19 @@
 /** @jsx h */
 import { Layout } from "../components/Layout.tsx";
-import { h, PageConfig, PageProps, useData } from "../deps.ts";
+import { h, PageConfig, PageProps } from "../client_deps.ts";
 
 export default function Home(props: PageProps) {
-  const errorQuery = useData("errorQuery", () => {
-    const q = props.url.searchParams.get("error");
-    if (q === "missing_code") {
-      return "Not found GitHub OAuth code";
-    }
-    if (q === "invalid_state") {
-      return "Invalid OAuth state";
-    }
-    if (q === "failed_to_get_token") {
-      return "Failed to get the access token";
-    }
-  });
+  let errorQuery = "";
+  const q = props.url.searchParams.get("error");
+  if (q === "missing_code") {
+    errorQuery = "Not found GitHub OAuth code";
+  }
+  if (q === "invalid_state") {
+    errorQuery = "Invalid OAuth state";
+  }
+  if (q === "failed_to_get_token") {
+    errorQuery = "Failed to get the access token";
+  }
 
   return (
     <Layout title="Login - GitHub Comments">

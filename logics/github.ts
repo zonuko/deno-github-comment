@@ -1,4 +1,4 @@
-import { config } from "../deps.ts";
+import { config } from "../client_deps.ts";
 
 const GITHUB_OAUTH_URL = "https://github.com/login/oauth/authorize";
 

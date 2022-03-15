@@ -1,12 +1,5 @@
 /** @jsx h */
-import {
-  h,
-  PageConfig,
-  PageProps,
-  useData,
-  useEffect,
-  useState,
-} from "../deps.ts";
+import { h, useEffect, useState } from "../client_deps.ts";
 
 export default function Repo(props: { name: string }) {
   const [pulls, setPulls] = useState({ pulls: [] });

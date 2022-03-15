@@ -2,9 +2,12 @@ import { getCookies } from "https://deno.land/std@0.107.0/http/cookie.ts";
 import { buildPagenation, tokenDecrypt } from "../../../logics/github.ts";
 import { HandlerContext } from "../../../server_deps.ts";
 
-export async function handler(ctx: HandlerContext): Promise<Response> {
-  const cookieValue = getCookies(ctx.req.headers)["oauth_token"];
-  const url = new URL(ctx.req.url);
+export async function handler(
+  req: Request,
+  ctx: HandlerContext,
+): Promise<Response> {
+  const cookieValue = getCookies(req.headers)["oauth_token"];
+  const url = new URL(req.url);
   const page = url.searchParams.get("page") || "1";
   const perPage = url.searchParams.get("per_page") || "30";
   const res = await fetch(

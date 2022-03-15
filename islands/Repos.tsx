@@ -1,39 +1,19 @@
 /** @jsx h */
-import { Layout } from "../../components/Layout.tsx";
-import { Paging } from "../../components/Paging.tsx";
-import {
-  h,
-  PageConfig,
-  PageProps,
-  useData,
-  useEffect,
-  useState,
-} from "../../deps.ts";
-import { Pagenation } from "../../logics/github.ts";
+/** @jsxFrag Fragment */
+import { Fragment, h, useEffect, useState } from "../client_deps.ts";
+
+import { Paging } from "../components/Paging.tsx";
+import { Pagenation } from "../logics/github.ts";
 
 const PER_PAGE = 30;
 
-export default function Github(props: PageProps) {
-  // todo: 本来であればuseDataにしたいが、サーバー側でのAPI実行時にcookie含むヘッダーをそのままに転送する方法がわからない
-  // const repos = useData("githubRepos", async () => {
-  //   const res = await fetch("http://localhost:8000/api/github/repos");
-  //   return await res.json();
-  // });
+export default function Repo(props: { initUrl: URL; page: number }) {
   const [repos, setRepos] = useState({
     repos: [],
   });
-  const initUrl = useData("repoInitUrl", () => props.url);
-  const pageParams = useData(
-    "repoInitPageNo",
-    () => {
-      const p = parseInt(props.url.searchParams.get("page") || "1");
-      if (p <= 0) return 1;
-      return p;
-    },
-  );
 
-  const [url, setUrl] = useState(initUrl);
-  const [page, setPage] = useState(pageParams);
+  const [url, setUrl] = useState(props.initUrl);
+  const [page, setPage] = useState(props.page);
   const [link, setLink] = useState<{ link: Pagenation }>({
     link: { hasNext: false, hasPrev: false },
   });
@@ -71,12 +51,7 @@ export default function Github(props: PageProps) {
   };
 
   return (
-    <Layout title="Repos - GitHub Comments">
-      <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <span class="navbar-brand mb-0 h1">Your Github Repos</span>
-        </div>
-      </nav>
+    <>
       <Paging onNext={onNextPage} onPrev={onPrevPage} link={link.link}></Paging>
       <div class="mb-3 list-group list-group-flush">
         {repos.repos.map((val, idx) => (
@@ -90,8 +65,6 @@ export default function Github(props: PageProps) {
         ))}
       </div>
       <Paging onNext={onNextPage} onPrev={onPrevPage} link={link.link}></Paging>
-    </Layout>
+    </>
   );
 }
-
-export const config: PageConfig = { runtimeJS: true };

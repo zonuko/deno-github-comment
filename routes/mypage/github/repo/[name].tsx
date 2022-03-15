@@ -1,18 +1,10 @@
 /** @jsx h */
 import { Layout } from "../../../../components/Layout.tsx";
-import Pulls from "../../../../components/Pulls.tsx";
-import {
-  h,
-  PageConfig,
-  PageProps,
-  useData,
-  useState,
-} from "../../../../deps.ts";
+import Pulls from "../../../../islands/Pulls.tsx";
+import { h, PageProps, useState } from "../../../../client_deps.ts";
 
 export default function Repo(props: PageProps) {
-  const name = useData("repoId", () => {
-    return decodeURIComponent(props.params["name"]);
-  });
+  const name = decodeURIComponent(props.params["name"]);
   const [tab, setTab] = useState("pulls");
   const onTabChange = (tabName: string) => {
     setTab(tabName);
@@ -48,5 +40,3 @@ export default function Repo(props: PageProps) {
     </Layout>
   );
 }
-
-export const config: PageConfig = { runtimeJS: true };
