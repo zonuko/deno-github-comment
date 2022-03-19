@@ -42,5 +42,3 @@ export default function Home(props: PageProps) {
     </Layout>
   );
 }
-
-export const config: PageConfig = { runtimeJS: true };
