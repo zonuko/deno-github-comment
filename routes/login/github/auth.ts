@@ -1,7 +1,6 @@
 import { buildGithubUrl, tokenEncrypt } from "../../../logics/github.ts";
-import { HandlerContext } from "../../../server_deps.ts";
 
-export async function handler(_ctx: HandlerContext): Promise<Response> {
+export async function handler(): Promise<Response> {
   try {
     const oauthUrl = buildGithubUrl();
     const githubRedirect = new Response(null, {

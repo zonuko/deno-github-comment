@@ -1,8 +1,7 @@
 /** @jsx h */
-import { ComponentChildren, h, Head } from "../client_deps.ts";
-export function Layout(
-  { title, children }: { title: string; children: ComponentChildren },
-) {
+import { AppProps, h, Head } from "../client_deps.ts";
+
+export default function App({ Component }: AppProps) {
   return (
     <div class="container">
       <Head>
@@ -18,10 +17,10 @@ export function Layout(
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
         >
         </link>
-        <title>{title}</title>
+        {/* <title>{title}</title> */}
       </Head>
       <div class="mt-5">
-        {children}
+        <Component />
       </div>
     </div>
   );

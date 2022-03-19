@@ -1,9 +1,7 @@
 /** @jsx h */
-import { Layout } from "../../components/Layout.tsx";
-import { h, PageProps, useEffect, useState } from "../../client_deps.ts";
+/** @jsxFrag Fragment */
+import { Fragment, h, Head, PageProps } from "../../client_deps.ts";
 import Repos from "../../islands/Repos.tsx";
-
-const PER_PAGE = 30;
 
 export default function Github(props: PageProps) {
   const initUrl = props.url;
@@ -13,13 +11,16 @@ export default function Github(props: PageProps) {
   }
 
   return (
-    <Layout title="Repos - GitHub Comments">
+    <>
+      <Head>
+        <title>Repos - GitHub Comments</title>
+      </Head>
       <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <span class="navbar-brand mb-0 h1">Your Github Repos</span>
         </div>
       </nav>
       <Repos initUrl={initUrl} page={p}></Repos>
-    </Layout>
+    </>
   );
 }

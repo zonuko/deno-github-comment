@@ -1,6 +1,6 @@
 {
     "tasks": {
-        "run": "deno run --watch -A --no-check main.ts",
+        "run": "deno run --allow-net --allow-read --allow-env --allow-run --watch=static/ --no-check main.ts",
         "reload": "deno cache -r --no-check main.ts"
     }
 }

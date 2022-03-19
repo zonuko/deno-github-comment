@@ -1,6 +1,6 @@
 /** @jsx h */
-import { Layout } from "../components/Layout.tsx";
-import { h, PageConfig, PageProps } from "../client_deps.ts";
+/** @jsxFrag Fragment */
+import { Fragment, h, Head, PageProps } from "../client_deps.ts";
 
 export default function Home(props: PageProps) {
   let errorQuery = "";
@@ -16,7 +16,11 @@ export default function Home(props: PageProps) {
   }
 
   return (
-    <Layout title="Login - GitHub Comments">
+    <>
+      {/* <Layout title="Login - GitHub Comments"> */}
+      <Head>
+        <title>Login - GitHub Comments</title>
+      </Head>
       <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <span class="navbar-brand mb-0 h1">Login</span>
@@ -39,6 +43,7 @@ export default function Home(props: PageProps) {
           {" Login with GitHub"}
         </a>
       </div>
-    </Layout>
+      {/* </Layout> */}
+    </>
   );
 }

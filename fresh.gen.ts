@@ -2,25 +2,27 @@
 // This file SHOULD be checked into source version control.
 // To update this file, run `fresh manifest`.
 
-import * as $0 from "./routes/api/github/pulls/[repo_name].tsx";
-import * as $1 from "./routes/api/github/repos.ts";
-import * as $2 from "./routes/index.tsx";
-import * as $3 from "./routes/login/github/auth.ts";
-import * as $4 from "./routes/login/github/callback.ts";
-import * as $5 from "./routes/mypage/github.tsx";
-import * as $6 from "./routes/mypage/github/repo/[name].tsx";
+import * as $0 from "./routes/_app.tsx";
+import * as $1 from "./routes/api/github/pulls/[repo_name].tsx";
+import * as $2 from "./routes/api/github/repos.ts";
+import * as $3 from "./routes/index.tsx";
+import * as $4 from "./routes/login/github/auth.ts";
+import * as $5 from "./routes/login/github/callback.ts";
+import * as $6 from "./routes/mypage/github.tsx";
+import * as $7 from "./routes/mypage/github/repo/[name].tsx";
 import * as $$0 from "./islands/Pulls.tsx";
 import * as $$1 from "./islands/Repos.tsx";
 
 const manifest = {
   routes: {
-    "./routes/api/github/pulls/[repo_name].tsx": $0,
-    "./routes/api/github/repos.ts": $1,
-    "./routes/index.tsx": $2,
-    "./routes/login/github/auth.ts": $3,
-    "./routes/login/github/callback.ts": $4,
-    "./routes/mypage/github.tsx": $5,
-    "./routes/mypage/github/repo/[name].tsx": $6,
+    "./routes/_app.tsx": $0,
+    "./routes/api/github/pulls/[repo_name].tsx": $1,
+    "./routes/api/github/repos.ts": $2,
+    "./routes/index.tsx": $3,
+    "./routes/login/github/auth.ts": $4,
+    "./routes/login/github/callback.ts": $5,
+    "./routes/mypage/github.tsx": $6,
+    "./routes/mypage/github/repo/[name].tsx": $7,
   },
   islands: {
     "./islands/Pulls.tsx": $$0,

@@ -1,7 +1,13 @@
 /** @jsx h */
-import { Layout } from "../../../../components/Layout.tsx";
+/** @jsxFrag Fragment */
 import Pulls from "../../../../islands/Pulls.tsx";
-import { h, PageProps, useState } from "../../../../client_deps.ts";
+import {
+  Fragment,
+  h,
+  Head,
+  PageProps,
+  useState,
+} from "../../../../client_deps.ts";
 
 export default function Repo(props: PageProps) {
   const name = decodeURIComponent(props.params["name"]);
@@ -10,7 +16,13 @@ export default function Repo(props: PageProps) {
     setTab(tabName);
   };
   return (
-    <Layout title={`${name} - GitHub Comments`}>
+    <>
+      <Head>
+        <title>
+          {`${name} - GitHub Comments`}
+        </title>
+      </Head>
+
       <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <span class="navbar-brand mb-0 h1">{name}</span>
@@ -37,6 +49,6 @@ export default function Repo(props: PageProps) {
         </li>
       </ul>
       {tab === "pulls" ? <Pulls name={name} /> : <div>comments: {name}</div>}
-    </Layout>
+    </>
   );
 }
