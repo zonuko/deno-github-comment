@@ -56,7 +56,9 @@ export default function Repo(props: { initUrl: URL; page: number }) {
       <div class="mb-3 list-group list-group-flush">
         {repos.repos.map((val, idx) => (
           <a
-            href={`/mypage/github/repo/${encodeURIComponent(val["full_name"])}`}
+            href={`/mypage/github/repo/${
+              encodeURIComponent(val["full_name"])
+            }/issues`}
             class="list-group-item list-group-item-action"
             key={idx}
           >

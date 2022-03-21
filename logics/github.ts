@@ -88,6 +88,9 @@ export function buildPagenation(linkHeader: string): Pagenation {
   return ret;
 }
 
+export function loginFilterHandler(req: Request) {
+}
+
 function getPageQuery(url?: string): number | null {
   if (!url) return null;
 

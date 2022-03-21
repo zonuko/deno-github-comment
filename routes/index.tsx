@@ -17,7 +17,6 @@ export default function Home(props: PageProps) {
 
   return (
     <>
-      {/* <Layout title="Login - GitHub Comments"> */}
       <Head>
         <title>Login - GitHub Comments</title>
       </Head>
