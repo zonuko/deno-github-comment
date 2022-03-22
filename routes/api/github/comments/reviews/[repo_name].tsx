@@ -17,5 +17,5 @@ export async function handler(
     },
   );
   const resJson = await res.json();
-  return new Response(JSON.stringify({ pulls: resJson }));
+  return new Response(JSON.stringify({ reviewComments: resJson }));
 }

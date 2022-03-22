@@ -1,13 +1,7 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
-import Pulls from "../../../../../islands/Pulls.tsx";
-import {
-  Fragment,
-  h,
-  Head,
-  PageProps,
-  useState,
-} from "../../../../../client_deps.ts";
+import { Fragment, h, Head, PageProps } from "../../../../../client_deps.ts";
+import IssueComments from "../../../../../islands/IssueComments.tsx";
 
 export default function Repo(props: PageProps) {
   const name = decodeURIComponent(props.params["name"]);
@@ -53,7 +47,7 @@ export default function Repo(props: PageProps) {
           </a>
         </li>
       </ul>
-      <Pulls name={name} />
+      <IssueComments name={name} />
     </>
   );
 }

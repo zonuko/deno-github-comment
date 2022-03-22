@@ -8,6 +8,7 @@ import {
   PageProps,
   useState,
 } from "../../../../../client_deps.ts";
+import ReviewComments from "../../../../../islands/ReviewComments.tsx";
 
 export default function Repo(props: PageProps) {
   const name = decodeURIComponent(props.params["name"]);
@@ -53,7 +54,7 @@ export default function Repo(props: PageProps) {
           </span>
         </li>
       </ul>
-      <Pulls name={name} />
+      <ReviewComments name={name} />
     </>
   );
 }
