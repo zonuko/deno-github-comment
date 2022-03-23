@@ -1,5 +1,6 @@
 import { getCookies } from "https://deno.land/std@0.107.0/http/cookie.ts";
 import { buildPagenation, tokenDecrypt } from "../../../logics/github.ts";
+import { buildRequestPage } from "../../../logics/pagenation.ts";
 import { HandlerContext } from "../../../server_deps.ts";
 
 export async function handler(
@@ -8,10 +9,9 @@ export async function handler(
 ): Promise<Response> {
   const cookieValue = getCookies(req.headers)["oauth_token"];
   const url = new URL(req.url);
-  const page = url.searchParams.get("page") || "1";
-  const perPage = url.searchParams.get("per_page") || "30";
+  const reqPage = buildRequestPage(req);
   const res = await fetch(
-    `https://api.github.com/user/repos?page=${page}&per_page=${perPage}`,
+    `https://api.github.com/user/repos?page=${reqPage.page}&per_page=${reqPage.perPage}`,
     {
       headers: {
         Authorization: `token ${await tokenDecrypt(cookieValue)}`,
@@ -19,8 +19,7 @@ export async function handler(
     },
   );
   const resJson = await res.json();
-  const link = res.headers.get("link") || "";
-  const pagenation = buildPagenation(link);
+  const pagenation = buildPagenation(res);
   return new Response(JSON.stringify({
     link: pagenation,
     repos: resJson,

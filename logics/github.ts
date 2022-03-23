@@ -63,7 +63,8 @@ export async function tokenDecrypt(val: string): Promise<string> {
   return new TextDecoder().decode(new Uint8Array(decryptedArrayBuffer));
 }
 
-export function buildPagenation(linkHeader: string): Pagenation {
+export function buildPagenation(res: Response): Pagenation {
+  const linkHeader = res.headers.get("link") || "";
   let ret: Pagenation = {
     hasNext: false,
     hasPrev: false,

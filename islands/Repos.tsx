@@ -31,7 +31,7 @@ export default function Repo(props: { initUrl: URL; page: number }) {
       }
     };
     call();
-    // TODO: ここらへん外側に持ってくかカスタムhookに
+    // TODO: ここらへん外側に持ってくかカスタムhookに(イベント含めて)
     const newUrl = new URL(url);
     newUrl.searchParams.set("page", page.toString());
     window.history.pushState(null, "", newUrl);
