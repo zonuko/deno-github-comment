@@ -6,11 +6,7 @@ import IssueComments from "../../../../../islands/IssueComments.tsx";
 export default function Repo(props: PageProps) {
   const paramName = props.params["name"];
   const name = decodeURIComponent(paramName);
-  const initUrl = props.url;
-  let p = parseInt(props.url.searchParams.get("page") || "1");
-  if (p <= 0) {
-    p = 1;
-  }
+  const initUrl = props.url.toString();
 
   return (
     <>
@@ -53,7 +49,7 @@ export default function Repo(props: PageProps) {
           </a>
         </li>
       </ul>
-      <IssueComments name={name} page={p} initUrl={initUrl} />
+      <IssueComments name={name} initUrl={initUrl} />
     </>
   );
 }

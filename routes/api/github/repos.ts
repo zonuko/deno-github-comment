@@ -5,10 +5,9 @@ import { HandlerContext } from "../../../server_deps.ts";
 
 export async function handler(
   req: Request,
-  ctx: HandlerContext,
+  _: HandlerContext,
 ): Promise<Response> {
   const cookieValue = getCookies(req.headers)["oauth_token"];
-  const url = new URL(req.url);
   const reqPage = buildRequestPage(req);
   const res = await fetch(
     `https://api.github.com/user/repos?page=${reqPage.page}&per_page=${reqPage.perPage}`,

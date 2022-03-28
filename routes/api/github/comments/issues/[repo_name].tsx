@@ -3,6 +3,33 @@ import { buildPagenation, tokenDecrypt } from "../../../../../logics/github.ts";
 import { buildRequestPage } from "../../../../../logics/pagenation.ts";
 import { HandlerContext } from "../../../../../server_deps.ts";
 
+// TODO: コメントに関してはいずれもGraphQLでとったほうが色んな情報が取れる(紐づくプルリクの情報とか)
+// サンプル
+/*
+{
+  viewer {
+    issueComments(first: 1, after:"Y3Vyc29yOnYyOpHOPtcV2Q==") {
+      totalCount
+      pageInfo {
+        endCursor
+      }
+      nodes {
+        repository {
+          nameWithOwner
+        }
+        issue {
+          number
+        }
+        pullRequest {
+          number
+          title
+        }
+        body
+      }
+    }
+  }
+}
+*/
 export async function handler(
   req: Request,
   ctx: HandlerContext,

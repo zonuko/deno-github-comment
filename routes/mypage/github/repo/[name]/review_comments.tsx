@@ -13,6 +13,8 @@ import ReviewComments from "../../../../../islands/ReviewComments.tsx";
 export default function Repo(props: PageProps) {
   const name = decodeURIComponent(props.params["name"]);
   const paramName = props.params["name"];
+  const initUrl = props.url.toString();
+
   return (
     <>
       <Head>
@@ -54,7 +56,7 @@ export default function Repo(props: PageProps) {
           </span>
         </li>
       </ul>
-      <ReviewComments name={name} />
+      <ReviewComments name={name} initUrl={initUrl} />
     </>
   );
 }
