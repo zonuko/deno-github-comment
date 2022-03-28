@@ -1,4 +1,7 @@
+import { getCookies } from "https://deno.land/std@0.107.0/http/cookie.ts";
 import { config } from "../client_deps.ts";
+import { HandlerContext } from "../server_deps.ts";
+import { buildRequestPage } from "./pagenation.ts";
 
 const GITHUB_OAUTH_URL = "https://github.com/login/oauth/authorize";
 
@@ -89,7 +92,44 @@ export function buildPagenation(res: Response): Pagenation {
   return ret;
 }
 
-export function loginFilterHandler(req: Request) {
+export async function getIssueComments(
+  req: Request,
+  ctx: HandlerContext,
+): Promise<Response> {
+  const name = decodeURIComponent(ctx.params["repo_name"]);
+  const cookieValue = getCookies(req.headers)["oauth_token"];
+  // コメントに関しては100件ずつが上限かつ総数がとれないので出せない
+  const reqPage = buildRequestPage(req, "100");
+
+  const res = await fetch(
+    `https://api.github.com/repos/${name}/issues/comments?page=${reqPage.page}&per_page=${reqPage.perPage}&sort=created&direction=desc`,
+    {
+      headers: {
+        Authorization: `token ${await tokenDecrypt(cookieValue)}`,
+      },
+    },
+  );
+  return res;
+}
+
+export async function getReviewComments(
+  req: Request,
+  ctx: HandlerContext,
+): Promise<Response> {
+  const name = decodeURIComponent(ctx.params["repo_name"]);
+  const cookieValue = getCookies(req.headers)["oauth_token"];
+  // コメントに関しては100件ずつが上限かつ総数がとれないので出せない
+  const reqPage = buildRequestPage(req, "100");
+
+  const res = await fetch(
+    `https://api.github.com/repos/${name}/pulls/comments?page=${reqPage.page}&per_page=${reqPage.perPage}&sort=created&direction=desc`,
+    {
+      headers: {
+        Authorization: `token ${await tokenDecrypt(cookieValue)}`,
+      },
+    },
+  );
+  return res;
 }
 
 function getPageQuery(url?: string): number | null {
