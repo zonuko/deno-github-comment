@@ -1,6 +1,5 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
-import Pulls from "../../../../../islands/Pulls.tsx";
 import {
   Fragment,
   h,

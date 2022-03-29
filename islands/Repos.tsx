@@ -8,12 +8,13 @@ import { Pagenation } from "../logics/github.ts";
 const PER_PAGE = 30;
 
 export default function Repo(props: { initUrl: URL; page: number }) {
+  const url = new URL(props.initUrl);
+  const page = url.searchParams.get("page");
+
   const [repos, setRepos] = useState({
     repos: [],
   });
 
-  const [url, setUrl] = useState(props.initUrl);
-  const [page, setPage] = useState(props.page);
   const [link, setLink] = useState<{ link: Pagenation }>({
     link: { hasNext: false, hasPrev: false },
   });
@@ -31,22 +32,17 @@ export default function Repo(props: { initUrl: URL; page: number }) {
       }
     };
     call();
-    // TODO: ここらへん外側に持ってくかカスタムhookに(イベント含めて)
-    const newUrl = new URL(url);
-    newUrl.searchParams.set("page", page.toString());
-    window.history.pushState(null, "", newUrl);
-    setUrl(newUrl);
   }, [page]);
-
   const onPrevPage = () => {
-    // TODO: 型ガードの類使ってprevパラメータのチェックはなくしたい(nextも同様)
     if (link.link.hasPrev && link.link.prev) {
-      setPage(link.link.prev);
+      url.searchParams.set("page", link.link.prev.toString());
+      document.location.href = url.toString();
     }
   };
   const onNextPage = () => {
     if (link.link.hasNext && link.link.next) {
-      setPage(link.link.next);
+      url.searchParams.set("page", link.link.next.toString());
+      document.location.href = url.toString();
     }
   };
 

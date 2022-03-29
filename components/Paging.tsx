@@ -27,7 +27,6 @@ export function Paging(
             disabled={!props.link.hasNext}
             className={props.link.hasNext ? "page-link"
             : "page-link btn disabled"}
-            class="page-link"
           >
             <span aria-hidden="true">&raquo;</span>
           </button>

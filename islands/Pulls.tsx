@@ -8,11 +8,10 @@ import { PagingProps } from "../types/comment.ts";
 const PER_PAGE = 30;
 
 export default function Repo(props: PagingProps) {
+  const url = new URL(props.initUrl);
+  const page = url.searchParams.get("page");
+
   const [pulls, setPulls] = useState({ pulls: [] });
-  const [url, setUrl] = useState(props.initUrl);
-  const [page, setPage] = useState(
-    new URL(props.initUrl).searchParams.get("page"),
-  );
   const [link, setLink] = useState<{ link: Pagenation }>({
     link: { hasNext: false, hasPrev: false },
   });
@@ -34,23 +33,17 @@ export default function Repo(props: PagingProps) {
       }
     };
     call();
-    const newUrl = new URL(url);
-    newUrl.searchParams.set("page", page || "1");
-    if (page) {
-      window.history.pushState(null, "", newUrl);
-    } else {
-      window.history.replaceState(null, "", newUrl);
-    }
-    setUrl(newUrl.toString());
   }, [page]);
   const onPrevPage = () => {
     if (link.link.hasPrev && link.link.prev) {
-      setPage(link.link.prev.toString());
+      url.searchParams.set("page", link.link.prev.toString());
+      document.location.href = url.toString();
     }
   };
   const onNextPage = () => {
     if (link.link.hasNext && link.link.next) {
-      setPage(link.link.next.toString());
+      url.searchParams.set("page", link.link.next.toString());
+      document.location.href = url.toString();
     }
   };
 
