@@ -19,7 +19,9 @@ function buildCSV(json: any): string {
   if (json) {
     csvBody = json.reduce(
       (acc: string, cur: any) =>
-        `${acc}\n"${cur.body}",${cur["user"]["login"]},${cur.created_at}`,
+        `${acc}\n"${cur.body.replace('"', '""')}",${
+          cur["user"]["login"]
+        },${cur.created_at}`,
       "",
     );
   }
